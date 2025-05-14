@@ -1,29 +1,33 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from "react";
+import api from "../api";
 
-const AuthContext = createContext(); // Create context for authentication
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  // Check for existing user on initial load
+  // Check if the user is logged in when the app loads
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
+    const fetchUser = async () => {
       try {
-        setUser(JSON.parse(storedUser));
+        const response = await api.get("/auth/me");
+        setUser(response.data);
       } catch (error) {
-        console.error("Error parsing user data:", error);
-        setUser(null);
+        console.log("No user logged in");
       }
-    }
+    };
+
+    fetchUser();
   }, []);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      {children} {/* Render children components */}
+      {children}
     </AuthContext.Provider>
   );
 };
 
-// Custom hook to access AuthContext
-export const useAuth = () => useContext(AuthContext);
+// Custom hook to access the AuthContext
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
