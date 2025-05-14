@@ -1,6 +1,6 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
-import { AuthContext } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";  // Corrected import
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 
@@ -8,7 +8,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { setUser } = useContext(AuthContext);
+  const { setUser } = useAuth();  // Use the custom hook here
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {

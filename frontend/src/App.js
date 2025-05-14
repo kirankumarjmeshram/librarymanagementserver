@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+import { AuthProvider } from './context/AuthContext';  // Ensure this import
+
 import Home from './pages/Home';
 import MyBooks from './pages/MyBooks';
 import Login from './pages/Login';
@@ -10,11 +12,10 @@ import Register from './pages/Register';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
-import AuthProvider from './context/AuthContext'; // ✅ Wrap the app with this
 
 function App() {
   return (
-    <AuthProvider>
+    <AuthProvider> {/* Wrap your app with AuthProvider */}
       <Router>
         <div className="d-flex flex-column min-vh-100">
           <Header />

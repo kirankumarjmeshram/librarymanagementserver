@@ -1,11 +1,10 @@
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";  // Corrected import
 import api from "../api";
 
 const Header = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser } = useAuth();  // Use the custom hook here
   const navigate = useNavigate();
 
   const logout = async () => {

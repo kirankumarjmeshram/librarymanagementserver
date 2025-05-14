@@ -1,12 +1,11 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
-// Create Auth Context
-const AuthContext = createContext();
+const AuthContext = createContext(); // Create context for authentication
 
-// AuthProvider component
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
+  // Check for existing user on initial load
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -14,17 +13,17 @@ export const AuthProvider = ({ children }) => {
         setUser(JSON.parse(storedUser));
       } catch (error) {
         console.error("Error parsing user data:", error);
-        setUser(null); // You may want to handle this more gracefully
+        setUser(null);
       }
     }
   }, []);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      {children}
+      {children} {/* Render children components */}
     </AuthContext.Provider>
   );
 };
 
-// Custom hook to use AuthContext
+// Custom hook to access AuthContext
 export const useAuth = () => useContext(AuthContext);

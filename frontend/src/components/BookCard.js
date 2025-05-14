@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+// import React, { useContext } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
+// import { AuthContext } from '../context/AuthContext';
+import { useAuth } from "../context/AuthContext";
 
 const BookCard = ({ book }) => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
 
   const handleAddToMyBooks = async () => {
     if (!user) {
