@@ -21,6 +21,9 @@ app.use(cookieParser());
 app.use('/api/auth', authRoutes);
 app.use('/api/books', bookRoutes);
 app.use('/api/mybooks', myBookRoutes);
+app.get('/',(req,res)=>{
+  res.send("<h1>Server Running</h1>");
+})
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
